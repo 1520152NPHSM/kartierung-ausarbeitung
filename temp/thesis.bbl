@@ -16,5 +16,71 @@
   {}
 \endgroup
 
+
+\refsection{0}
+  \datalist[entry]{nyt/global//global/global}
+    \entry{Wiki2018}{misc}{}
+      \field{sortinit}{D}
+      \field{sortinithash}{2ef1bd9a78cc71eb74d7231c635177b8}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{http://wiki.ros.org/}
+      \field{month}{7}
+      \field{title}{Documentation - ROS Wiki}
+      \field{year}{2018}
+    \endentry
+    \entry{Grisetti2007}{article}{}
+      \name{author}{3}{}{%
+        {{uniquename=0,uniquepart=base,hash=6e03fdf76474b45acb7f7f74b250b666}{%
+           family={Grisetti},
+           familyi={G\bibinitperiod},
+           given={G.},
+           giveni={G\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=88f34e717a71e0838abd95bd45d84934}{%
+           family={Stachniss},
+           familyi={S\bibinitperiod},
+           given={C.},
+           giveni={C\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=33f960734163cca595a2898e40ead972}{%
+           family={Burgard},
+           familyi={B\bibinitperiod},
+           given={W.},
+           giveni={W\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{37deaffaa904d8779c71262437aa51cb}
+      \strng{fullhash}{37deaffaa904d8779c71262437aa51cb}
+      \strng{bibnamehash}{37deaffaa904d8779c71262437aa51cb}
+      \strng{authorbibnamehash}{37deaffaa904d8779c71262437aa51cb}
+      \strng{authornamehash}{37deaffaa904d8779c71262437aa51cb}
+      \strng{authorfullhash}{37deaffaa904d8779c71262437aa51cb}
+      \field{sortinit}{G}
+      \field{sortinithash}{5e8d2bf9d38de41b1528bd307546008f}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{issn}{1552-3098}
+      \field{journaltitle}{IEEE Transactions on Robotics}
+      \field{month}{2}
+      \field{number}{1}
+      \field{title}{Improved Techniques for Grid Mapping With Rao-Blackwellized Particle Filters}
+      \field{volume}{23}
+      \field{year}{2007}
+      \field{pages}{34\bibrangedash 46}
+      \range{pages}{13}
+      \verb{doi}
+      \verb 10.1109/TRO.2006.889486
+      \endverb
+      \verb{file}
+      \verb :Studium/ROB/paper/Grisetti2007 - Improved Techniques for Grid Mapping with Rao Blackwellized Particle Filters.pdf:PDF
+      \endverb
+      \keyw{SLAM (robots);mobile robots;particle filtering (numerical methods);Rao-Blackwellized particle filters;grid mapping;mobile robots;particle depletion;simultaneous localization and mapping problem;Computer science;Contracts;Distributed computing;Mobile robots;Orbital robotics;Particle filters;Proposals;Robot sensing systems;Simultaneous localization and mapping;Uncertainty;Adaptive resampling;Rao-Blackwellized particle filter (RBPF);improved proposal;motion model;simultaneous localization and mapping (SLAM)}
+    \endentry
+  \enddatalist
+\endrefsection
 \endinput
 
