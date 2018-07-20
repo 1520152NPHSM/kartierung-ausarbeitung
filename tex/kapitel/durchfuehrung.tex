@@ -1,6 +1,94 @@
 \chapter{Durchführung} % (fold)
 \label{cha:durchfuehrung}
 
-Durchführung
+Bei der Erstellung einer Karte mittels des Pioneer 3-DX Roboters gibt es einige Dinge zu beachten, damit der Roboter wie gewünscht funktioniert und die Probleme beim Mapping der Karte verringert werden.\par
+Zunächst gilt es aber den Roboter mit allen Funktionen richtig zu starten.
+Als erster Schritt wird der auf dem Ubuntu-Rechner angemeldete Nutzer mit den nötigen Rechten für die Benutzung der benötigten Pe­ri­phe­rie­ge­räte ausgestattet.
+
+\begin{lstlisting}[language=sh,caption=Rechteverteilung]
+    sudo chmod 777 /dev/ttyS0
+    sudo chmod 777 /dev/ttyUSB0
+    sudo chmod 777 /dev/input/js0
+\end{lstlisting}
+
+Anschließend wird  \ac{ROS} mit der angegebenen launch Datei gestartet. Diese muss während des gesamten Vorganges offen bleiben.
+
+\begin{lstlisting}[language=sh,caption=Starten von \ac{ROS}]
+    roslaunch p2os_launch pioneerMasterLaunchFile.launch
+\end{lstlisting}
+
+Darauf folgend kann in einem neuen Konsolenfenster eine Message für die Motorsteuerung abgesendet werden.
+
+\begin{lstlisting}[language=sh,caption=Starten des Motors]
+    rostopic pub /cmd_motor_state p2os_msgs/MotorState 1
+\end{lstlisting}
+
+In einem neuen Konsolenfenster kann nun das GMapping gestartet werden. Dass Fenster darf wie alle anderen Konsolenfenster nicht geschlossen werden.
+
+\begin{lstlisting}[language=sh,caption=Starten von GMapping]
+    rosrun gmapping slam_gmapping scan:=scan _particles:=100 _linearUpdate:=0.1 _angularUpdate:=0.03
+\end{lstlisting}
+
+Nun ist der Roboter einsatzbereit und mittels des Joysticks steuerbar. Außerdem kann ein Livebild der Sensordaten des Laserscanners in Rviz angezeigt werden. 
+
+In einem neuen Konsolenfenster kann nun die Protokollierung der gesendeten Messages gestartet werden, um bei einem Absturz oder ähnliches die Daten neu abspielen und daraus eine Karte generieren zu können.
+
+\begin{lstlisting}[language=sh,caption=Aufnahme aller versendeten Nachrichten]
+    rosbag record -O <bag-datei-name> /base_scan /tf /joy /cmd_vel /scan /pose /scan
+\end{lstlisting}
+
+Nach Abschluss der Kartierung oder falls der Rechner abgestürzt ist, kann die Karte auf einem leistungsfähigeren Rechner generiert werden.\par
+
+Zuerst müssen alle noch fehlenden Packages für die Kartenerstellung heruntergeladen und installiert werden. Dies geschieht über die Website von Prof. Ihme.\footnote{\url{https://services.informatik.hs-mannheim.de/~ihme/ros/Kartierung}} Es müssen folgende Packages (siehe Tabelle \ref{tab:mapping-packages}) entpacket werden und in den src-Ordner des \ac{ROS} Workspaces verschoben werden.
+
+\begin{table}[H]
+  \caption{Benötigte Packages}
+  \label{tab:mapping-packages}
+  \renewcommand{\arraystretch}{1.2}
+  \centering
+  \sffamily
+  \begin{footnotesize}
+    \begin{tabular}{l}
+    \toprule
+    \textbf{Package}\\
+    \midrule
+    openslam{\_}gmapping\\
+    p2os\\
+    pioneer\\
+    slam{\_}gmapping\\
+    \bottomrule
+    \end{tabular}
+  \end{footnotesize}
+  \rmfamily
+\end{table}
+
+Zuerst müssen die Packages installiert werden.\footnote{Das Konsolenfenster muss sich im Verzeichnis \enquoute{catkin_ws} befinden.} 
+
+\begin{lstlisting}[language=sh,caption=Rechte]
+    catkin_make
+\end{lstlisting}
+
+In einem neuen Konsolenfenster können nun alle noch benötigten Nodes für die Kartierung mittels GMapping gestartet werden. Dieses Fenster darf wie alle anderen und noch zu öffnenden Fenster nicht vor Beendigung des Vorgangs geschlossen werden.
+
+\begin{lstlisting}[language=sh,caption=Rechte]
+    roslaunch slam_gmapping_pioneer1.launch
+\end{lstlisting}
+
+Zur visuellen Darstellung der Kartierung kann rviz in einem neuen Konsolenfenster geöffnet werden.
+
+\begin{lstlisting}[language=sh,caption=Rechte]
+    rosrun rviz rviz -d rviz_kartierung.rviz
+\end{lstlisting}
+
+Es öffnet sich ein rviz Fenster, in dem die Karte angezeigt wird. Dies muss während des gesamten Vorganges offen bleiben. Man kann die Kartenerstellung nun mittels geeigneter Tools wie z.\,B. Kazam filmen.
+
+Abschließend müssen noch die aufgenommenen Nachrichten zur Kartenerstellung abgespielt werden.
+
+\begin{lstlisting}[language=sh,caption=Rechte]
+    rosbag play --clock <bag-datei-name>
+\end{lstlisting}
+
+Wichtig hierbei ist das \enquote{--clock}, wodurch die Zeit in rviz auf den Startzeitpunkt der Karte gesetzt wird und ein Anzeigen ermöglicht wird. Zu beachten ist, dass das Abspielen in Echtzeit erfolgt und genauso lange benötigt wie das Erstellen der Karte. Außerdem kann es vorkommen, dass die Karte bei zwei verschiedenen Wiedergaben, trotz identischer Konfiguration, anders aussieht und das erneute Mapping im schlimmsten Fall nicht funktioniert. Dies zeigt sich vor allem darin, dass sich Teilgebiete überschneiden. Hier gilt aber auch zu beachten, dass sich diese in manchen Fällen wieder richtig ausrichten können und man den Wiedergabevorgang nicht sofort abbrechen muss.\par
+Im Rahmen der Lehrveranstaltung wurde der erste Stock des Informatikgebäudes der Hochschule Mannheim an zwei verschiedenen Tagen kartiert.
 
 % chapter durchfuehrung (end)

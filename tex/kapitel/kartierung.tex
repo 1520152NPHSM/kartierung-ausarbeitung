@@ -1,10 +1,20 @@
 \chapter{Kartierung} % (fold)
 \label{cha:kartierung}
 
-Kartierung
+Falls ein Roboter von seiner Umgebung eine Karte erstellen soll, muss er dafür seine Position lokalisieren. Hierfür bracht er jedoch eine Karte seiner Umgebung. Durch diese wechselseitige Abhängigkeit wird das Problem oft auch als \ac{SLAM} bezeichnet. Ein Verfahren zur Lösung des Problems ist der Einsatz von Partikelfiltern.
 
 \section{GMapping} % (fold)
 \label{sec:gmapping}
+
+Aus der Odometrie des Roboters und den Beobachtungen kann näherungsweise die Karte und die Bewegung des Roboters berechnet werden. Der Roboter setzt hierzu Rao-Blackwellized Partikelfilter ein. Zuerst wird die Trajektorie des Roboters und daraus anschließend die Karte bestimmt.
+
+Durch einen Rao-Blackwellized Partikelfilter soll eine Anäherung der Umgebungskarte $m$ und des Bewegungsbahn des Roboters $x_{1:t} = x_1,...,x_t$ erechnet werden. Zur Berechnung werden die Odometrie des Roboters $u_{1:t} = u_1,...,u_{t-1}$ und die Umgebungsbeobachtungen benutzt. Allgemein soll die Wahrscheinlichkeit $p(x_{t:1},m | z_{1:t},u_{1:t-1})$ bestimmt werden. Durch Einsatz der Faktorisierung
+\begin{equation}
+	$p(x_{t:1},m | z_{1:t},u_{1:t-1}) = p(m|x_{1:t},z_{1:t})*p(x_{1:t}|z_{1:t},u_{1:t-1})$
+\end{equation}
+kann nun zuerst näherungsweise die Trajektorie des Roboters und dann daraus die Karte berechnet.\par
+Während $p(m|x_{1:t},z_{1:t})$ analytisch aus gegebenen $x_{1:t}$ und $z_{1:t}$ berechnet werden kann, wird für $p(x_{1:t}|z_{1:t},u_{1:t-1})$ ein Partikelfilter eingesetzt. 
+
 
 % section gmapping (end)
 
